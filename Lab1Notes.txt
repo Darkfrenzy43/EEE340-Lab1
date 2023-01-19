@@ -4,6 +4,9 @@ Notes to remember:
 - Parsers are written first and then the lexers second. We should write the lexer elements first though.
 - Make grammar as simple as possible, but no simpler.
 - Don't use a KEYWORDS element. Check out the tips instead.
+- If internal structure of something will help out later, best move is to make it a parsing rule of lex elements
+    ie. parsing rule : [TYPE][LITERAL];
+- Try building the string out of fragments in a whole lexing rule
 
 
 
