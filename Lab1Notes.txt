@@ -9,4 +9,7 @@ Notes to remember:
 - Try building the string out of fragments in a whole lexing rule
 
 
-
+Next to do:
+    Brown is fucking hot : Bottom to if-else
+    Velaco is shit head: function call expression to while
+    ! SKIP THE STRING LITERAL LEX !
