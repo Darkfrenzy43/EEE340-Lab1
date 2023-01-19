@@ -1,5 +1,9 @@
 
 Notes to remember:
 - Only write the necessary test cases - don't need to have a very long list. These will be strictly marked.
-- Parsers are written first and then the lexers second. Lexers get "compiled" first though.
--
+- Parsers are written first and then the lexers second. We should write the lexer elements first though.
+- Make grammar as simple as possible, but no simpler.
+- Don't use a KEYWORDS element. Check out the tips instead.
+
+
+
