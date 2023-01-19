@@ -1,0 +1,5 @@
+
+Notes to remember:
+- Only write the necessary test cases - don't need to have a very long list. These will be strictly marked.
+- Parsers are written first and then the lexers second. Lexers get "compiled" first though.
+-
