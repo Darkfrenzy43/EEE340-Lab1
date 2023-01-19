@@ -8,8 +8,16 @@ Description:
 
 
 
-Valid {}:
+Valid IDs (Identifiers):
+- _theFirst
+- Number_2
+- tHiRD
+- fourth
 
-Invalid {}:
+Invalid IDs (Identifiers):
+- 0asfd
+- @
+- $1234asdf
+- notValid-d:D
 
 
