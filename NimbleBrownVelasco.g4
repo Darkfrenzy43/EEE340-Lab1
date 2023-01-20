@@ -3,6 +3,11 @@ grammar NimbleBrownVelasco;
 
 
 // ------------ Defining Parser Elements --------------
+script: func* (varDec* statement*);
+
+statement: 'if' expre '{' statement+ '}' ('else' '{' statement+ '}')? # ifelse
+          | 'return' expre?
+          | func;
 
 expre // Add bool and string?
     : '(' expre ')'                  # paren
@@ -16,9 +21,9 @@ expre // Add bool and string?
 
 // function calls can return something and also can not. It can thus be an expression (x = fcn()) and statement (fcn())
 
-func
-    :
-    ;
+func: 'func' ID '(' (parameter ',')? ')' ('->' (NUMBER| STRING | BOOLEAN)) '{' varDec* statement*;
+
+parameter: ID ':' (NUMBER | STRING | BOOLEAN);
 
 
 //  ----------- Defining Lexer Elements -------------
