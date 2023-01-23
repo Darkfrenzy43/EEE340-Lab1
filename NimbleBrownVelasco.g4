@@ -3,18 +3,16 @@ grammar NimbleBrownVelasco;
 
 
 // ------------ Defining Parser Elements --------------
-script: func* (varDec* statement*);
-
-statement: 'if' expre '{' statement+ '}' ('else' '{' statement+ '}')? # ifelse
-          | 'return' expre?
-          | func;
+script: func* (var* statement*);
 
 // Defining key words here too. TODO - still a little confused on keywords
 statement
-    : ID '=' expre                            # assigment
-    | 'print' WS expre                        # doPrint
-    | 'while' expre '{' ('\n\r')* block '}'   # whileLoop   // Keyword
-    | func                                    # funcStat
+    : ID '=' expre                                               # assigment
+    | 'print' WS expre                                           # doPrint
+    | 'while' expre '{' ('\n\r')* block '}'                      # whileLoop   // Keyword
+    | 'if' expre '{' statement+ '}' ('else' '{' statement+ '}')? # ifelse
+    | 'return' expre?                                            # return
+    | func                                                       # funcStat
     ;
 
 block
@@ -34,22 +32,24 @@ expre // Add bool and string?
     ;
 
 
-<<<<<<< HEAD
-func: 'func' ID '(' (parameter ',')? ')' ('->' (NUMBER| STRING | BOOLEAN)) '{' varDec* statement*;
+// TODO IDK what this is but I don't think this should exist
+//<<<<<<< HEAD
+func: 'func' ID '(' (parameter ',')? ')' ('->' (NUMBER| STRING | BOOLEAN)) '{' var* statement*;
 
 parameter: ID ':' (NUMBER | STRING | BOOLEAN);
-=======
+// TODO IDK what this is but I don't think this should exist
+//=======
 var     // keyword
     : ID ':' TYPE ('=' expre)*
     ;
->>>>>>> 826e5c5a5d1132c4a3bffc66debde7c73d7f6d77
+// TODO IDK what this is but I don't think this should exist
+//>>>>>>> 826e5c5a5d1132c4a3bffc66debde7c73d7f6d77
 
-
-
-func
-    : ID '()'                      # EmpFunc
-    | ID '(' paramlist ')'         # ParamFunc
-    ;
+// TODO IDK what this is but I don't think this should exist
+//func
+    //: ID '()'                      # EmpFunc
+    //| ID '(' paramlist ')'         # ParamFunc
+    //;
 
 paramlist
     : (WS)
