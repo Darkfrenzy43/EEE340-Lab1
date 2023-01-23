@@ -21,3 +21,22 @@ Invalid IDs (Identifiers):
 - notValid-d:D
 
 
+Valid Function Calls:
+- this_one_is_valid()
+- computeThis(a, b, c )
+- _DoSomething( 123    , 1 + 3 * 5   )
+- oneInAnother((12 + 3) - 2, someVar);
+- thisWillDo( sureWill() )
+
+
+
+Invalid Function Calls:
+- nope(, )
+- not_good(really bad)
+- 123NotViable()
+- Absolutely()not
+- maybe?()
+- niceTry(try ,, again)
+
+
+

@@ -9,9 +9,23 @@ statement: 'if' expre '{' statement+ '}' ('else' '{' statement+ '}')? # ifelse
           | 'return' expre?
           | func;
 
+// Defining key words here too. TODO - still a little confused on keywords
+statement
+    : ID '=' expre                            # assigment
+    | 'print' WS expre                        # doPrint
+    | 'while' expre '{' ('\n\r')* block '}'   # whileLoop   // Keyword
+    | func                                    # funcStat
+    ;
+
+block
+    :
+    ;
+
+
 expre // Add bool and string?
     : '(' expre ')'                  # paren
-    | op=('-'|'!')expre              # unibool
+    | func                           # funcExpre
+    | op=('-'|'!') expre             # unibool
     | expre op=('*'|'/') expre       # muldiv
     | expre op=('+'|'-') expre       # addsub
     | expre op=('=='|'<'|'<=') expre # comp
@@ -19,23 +33,46 @@ expre // Add bool and string?
     | ID                             # Identifier
     ;
 
-// function calls can return something and also can not. It can thus be an expression (x = fcn()) and statement (fcn())
 
+<<<<<<< HEAD
 func: 'func' ID '(' (parameter ',')? ')' ('->' (NUMBER| STRING | BOOLEAN)) '{' varDec* statement*;
 
 parameter: ID ':' (NUMBER | STRING | BOOLEAN);
+=======
+var     // keyword
+    : ID ':' TYPE ('=' expre)*
+    ;
+>>>>>>> 826e5c5a5d1132c4a3bffc66debde7c73d7f6d77
 
+
+
+func
+    : ID '()'                      # EmpFunc
+    | ID '(' paramlist ')'         # ParamFunc
+    ;
+
+paramlist
+    : (WS)
+    | param
+    | (param)(','param)*
+    ;
+
+param : WS* expre WS*;
 
 //  ----------- Defining Lexer Elements -------------
+
+// Added
+TYPE : 'Int' | 'String' | 'Bool' ;
 
 // Remaining: Keywords, Type names
 
 NUMBER : [0-9]+;
 
-BOOLEAN : 'true' | 'false';
+BOOLEAN : 'true' | 'false';  // keyword
 
 // TODO -
 STRING : ;
+
 
 ID : [_A-Za-z][_A-Za-z0-9]*;
 
