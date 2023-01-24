@@ -12,16 +12,11 @@ script: func* (var* statement*);
 statement
     : ID '=' expre                                               # assigment
     | 'print' WS expre                                           # doPrint
-    | 'while' expre '{' ('\n\r')* block '}'                      # whileLoop   // Keyword
-    | 'if' expre '{' statement+ '}' ('else' '{' statement+ '}')? # ifElse
+    | 'while' expre '{' ('\n\r')* statement* '}'                      # whileLoop   // Keyword
+    | 'if' expre '{' statement* '}' ('else' '{' statement* '}')? # ifElse
     | 'return' expre?                                            # return
     | func                                                       # funcStat
     ;
-
-block
-    :
-    ;
-
 
 expre // Add bool and string?
     : '(' expre ')'                  # paren
