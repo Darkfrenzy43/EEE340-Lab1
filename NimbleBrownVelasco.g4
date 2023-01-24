@@ -1,6 +1,9 @@
 
 grammar NimbleBrownVelasco;
 
+// TODO - 1. Fix the function expression and statement
+//           -> There should be two of these I think
+
 
 // ------------ Defining Parser Elements --------------
 script: func* (var* statement*);
@@ -10,7 +13,7 @@ statement
     : ID '=' expre                                               # assigment
     | 'print' WS expre                                           # doPrint
     | 'while' expre '{' ('\n\r')* block '}'                      # whileLoop   // Keyword
-    | 'if' expre '{' statement+ '}' ('else' '{' statement+ '}')? # ifelse
+    | 'if' expre '{' statement+ '}' ('else' '{' statement+ '}')? # ifElse
     | 'return' expre?                                            # return
     | func                                                       # funcStat
     ;
@@ -34,13 +37,13 @@ expre // Add bool and string?
 
 // TODO IDK what this is but I don't think this should exist
 //<<<<<<< HEAD
-func: 'func' ID '(' (parameter ',')? ')' ('->' (NUMBER| STRING | BOOLEAN)) '{' var* statement*;
+func: 'func' ID '(' (parameter ',')? ')' ('->' (NUMBER| STRING | BOOLEAN)) '{' var* statement* '}';
 
 parameter: ID ':' (NUMBER | STRING | BOOLEAN);
 // TODO IDK what this is but I don't think this should exist
 //=======
 var     // keyword
-    : ID ':' TYPE ('=' expre)*
+    : 'var' ID ':' TYPE ('=' expre)*
     ;
 // TODO IDK what this is but I don't think this should exist
 //>>>>>>> 826e5c5a5d1132c4a3bffc66debde7c73d7f6d77
