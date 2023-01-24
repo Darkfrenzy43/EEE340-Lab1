@@ -37,6 +37,8 @@ func: 'func' ID '(' (parameter ',')? ')' ('->' (NUMBER| STRING | BOOLEAN)) '{' v
 parameter: ID ':' (NUMBER | STRING | BOOLEAN);
 // TODO IDK what this is but I don't think this should exist
 //=======
+
+
 var     // keyword
     : 'var' ID ':' TYPE ('=' expre)*
     ;

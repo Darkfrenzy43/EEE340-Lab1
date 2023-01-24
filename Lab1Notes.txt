@@ -13,3 +13,70 @@ Next to do:
     Brown is fucking hot : Bottom to if-else
     Velaco is shit head: function call expression to while
     ! SKIP THE STRING LITERAL LEX !
+
+
+Completed Items:
+
+    Lexical Elements:
+        - Whitespace
+        - Comments
+        - Types Names
+        - Identifiers
+        - Operators (already in expressions)
+
+        - Literals:
+            - true and false
+            - integers
+            - booleans
+
+        - to do in Literals:
+            1. String literals
+
+    - To do in Lexical Elements:
+        1. proper implementation of keywords
+
+
+    Expressions:
+
+        Are literals, identifiers, unary and binary operator expressions, parenthesized expressions,
+        and function calls.
+
+        - Literal expressions: integer string and bool expressions
+        - Identifier expressions
+        - Unary operator expressions
+        - Binary operator expressions (defined implicitly)
+        - parenthesized expressions
+
+    To do in Expressions:
+
+        - Function call expression
+            - includes parameter list
+
+
+    Variable Declarations:
+
+        - literally the variable declaration
+
+
+    Statements:
+
+        - assignment
+        - print
+
+    To do/verify:
+
+        - while loop
+        - if else statement
+        - return statement
+        - function statement (one on its own)
+
+
+    To do in Function definitions:
+        - the function definition
+        - the parameter declaration
+
+
+    Program structure:
+
+        - function definition block (as many needed)
+        - main block (one is needed)
