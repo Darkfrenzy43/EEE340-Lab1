@@ -66,16 +66,24 @@ expre
     | ID                             # Identifier
     ;
 
+
 //  ----------- Defining Lexer Elements -------------
 
 // ---- Building the string from fragments ----
 
 // TODO - make string lexer be able to distinguish a '\'-character with a regular character
 
-ASC_FRAG : [ -~] -> skip; // skip included so it doesn't detect an ASC_FRAG whenever there is no string
-SLASH_CHAR_FRAG : [abfnrtv\\'"?] ;
-SLASH_FRAG : '\\' SLASH_CHAR_FRAG;
-STRING : '"' (ASC_FRAG|SLASH_FRAG)*? '"';
+// Make ASC_FRAG include all chars except '\' (unicode \u005C)
+ASC_FRAG : ((' '..'[')|(']'..'~')) -> skip; // skip included so it doesn't detect an ASC_FRAG whenever there is no string
+// SLASH_CHAR_FRAG : [abfnrtv\\'"?] ;
+// SLASH_FRAG_B : '\\' ~[ -!][#-&] ; //('('..'>'|'@'..']'|'['..'`'|'c'..'e'|'g'..'m'|'o'..'q'|'s'|'u'|) ;
+SLASH_FRAG : '\\' [ \\abfnrtv'"?];
+
+
+
+STRING : '"' (ASC_FRAG|SLASH_FRAG)*? '\\'? '"';
+
+
 
 // LITERAL : NUMBER|STRING|BOOLEAN ;
 
