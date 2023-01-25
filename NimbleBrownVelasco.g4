@@ -5,36 +5,13 @@ grammar NimbleBrownVelasco;
 //           -> There should be two of these I think
 
 
-// ------------ Defining Parser Elements --------------
+// ----------------- Defining Parser Elements -------------------
 
 // Creating overarching script parser element
 script : func_def* (var* statement*);
 
 
-
-
-
-// TODO IDK what this is but I don't think this should exist
-//<<<<<<< HEAD
-
-
-
-
-
-var     // keyword
-    : 'var' ID ':' TYPE ('=' expre)*
-    ;
-// TODO IDK what this is but I don't think this should exist
-//>>>>>>> 826e5c5a5d1132c4a3bffc66debde7c73d7f6d77
-
-// TODO IDK what this is but I don't think this should exist
-//func
-    //: ID '()'                      # EmpFunc
-    //| ID '(' paramlist ')'         # ParamFunc
-    //;
-
-
-// --------------- Defining Elements for Functions ----------------
+// ------ Defining Elements for Functions --------
 
 // Building function definition from fragments:
 // 1. The function name fragment
@@ -58,16 +35,26 @@ func : ID '(' (func_args)?  ')' ;
 func_args : expre (','expre)* ;
 
 
+// ------------------ Defining Statement Fragments -----------------------
+
+stat_block_frag : '{' ('\n\r')* statement* '}'  ;
+if_frag : 'if' expre stat_block_frag;
+else_frag : 'else' stat_block_frag;
+
+
+var : 'var' ID ':' TYPE ('=' expre)* ; // Double check this
+
 // -------------------- Defining Large Parser Elements --------------------
 
 // Defining key words here too. TODO - still a little confused on keywords
 statement
-    : ID '=' expre                                               # assigment
-    | 'print' WS expre                                           # doPrint
-    | 'while' expre '{' ('\n\r')* statement* '}'                 # whileLoop   // Keyword
-    | 'if' expre '{' statement* '}' ('else' '{' statement* '}')? # ifElse
-    | 'return' expre?                                            # return
-    | func                                                       # funcStat
+    : ID '=' expre                                       # assigment
+    | 'print' expre                                      # doPrint
+    | 'while' expre stat_block_frag                      # whileLoop   // Keyword
+    | if_frag (else_frag)?                               # ifElse
+    | 'return' expre?                                    # return
+    | func                                               # funcStat
+    | var                                                # VarDec
     ;
 
 
@@ -77,8 +64,8 @@ expre // Add bool and string?
     | op=('-'|'!') expre             # unibool
     | expre op=('*'|'/') expre       # muldiv
     | expre op=('+'|'-') expre       # addsub
-    | expre op=('=='|'<'|'<=') expre # comp
-    | LITERAL                        # Literal
+    | expre op=('=='|'<'|'<=') expre # compare
+    | (NUMBER|STRING|BOOLEAN)        # Literal
     | ID                             # Identifier
     ;
 
@@ -87,7 +74,7 @@ expre // Add bool and string?
 // TODO
 STRING : ;
 
-LITERAL : NUMBER|STRING|BOOLEAN ;
+// LITERAL : NUMBER|STRING|BOOLEAN ;
 
 TYPE : 'Int' | 'String' | 'Bool' ;
 

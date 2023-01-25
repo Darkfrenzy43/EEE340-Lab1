@@ -45,11 +45,8 @@ Completed Items:
         - Unary operator expressions
         - Binary operator expressions (defined implicitly)
         - parenthesized expressions
-
-    To do in Expressions:
-
         - Function call expression
-            - includes parameter list
+              - includes parameter list
 
 
     Variable Declarations:
@@ -70,7 +67,7 @@ Completed Items:
         - function statement (one on its own)
 
 
-    To do in Function definitions:
+   Function definitions:
         - the function definition
         - the parameter declaration
 
