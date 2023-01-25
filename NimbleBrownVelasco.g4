@@ -6,37 +6,19 @@ grammar NimbleBrownVelasco;
 
 
 // ------------ Defining Parser Elements --------------
-script: func* (var* statement*);
 
-// Defining key words here too. TODO - still a little confused on keywords
-statement
-    : ID '=' expre                                               # assigment
-    | 'print' WS expre                                           # doPrint
-    | 'while' expre '{' ('\n\r')* statement* '}'                      # whileLoop   // Keyword
-    | 'if' expre '{' statement* '}' ('else' '{' statement* '}')? # ifElse
-    | 'return' expre?                                            # return
-    | func                                                       # funcStat
-    ;
+// Creating overarching script parser element
+script : func_def* (var* statement*);
 
-expre // Add bool and string?
-    : '(' expre ')'                  # paren
-    | func                           # funcExpre
-    | op=('-'|'!') expre             # unibool
-    | expre op=('*'|'/') expre       # muldiv
-    | expre op=('+'|'-') expre       # addsub
-    | expre op=('=='|'<'|'<=') expre # comp
-    | (NUMBER|STRING|BOOLEAN)        # Literal
-    | ID                             # Identifier
-    ;
+
+
 
 
 // TODO IDK what this is but I don't think this should exist
 //<<<<<<< HEAD
-func: 'func' ID '(' (parameter ',')? ')' ('->' (NUMBER| STRING | BOOLEAN)) '{' var* statement* '}';
 
-parameter: ID ':' (NUMBER | STRING | BOOLEAN);
-// TODO IDK what this is but I don't think this should exist
-//=======
+
+
 
 
 var     // keyword
@@ -51,28 +33,67 @@ var     // keyword
     //| ID '(' paramlist ')'         # ParamFunc
     //;
 
-paramlist
-    : (WS)
-    | param
-    | (param)(','param)*
+
+// --------------- Defining Elements for Functions ----------------
+
+// Building function definition from fragments:
+// 1. The function name fragment
+// 2. The return fragment
+// 3. The block fragment
+
+param_frag : ID ':' TYPE;
+func_param : param_frag (','param_frag)* ;
+func_frag : 'func' ID '(' (func_param)? ')' ;
+
+ret_frag : '->' TYPE ;
+
+block_frag : var* statement* ;
+
+// Building function definition element
+func_def: func_frag ret_frag? '{' block_frag '}' ;
+
+
+// For the function expressions and statements
+func : ID '(' (func_args)?  ')' ;
+func_args : expre (','expre)* ;
+
+
+// -------------------- Defining Large Parser Elements --------------------
+
+// Defining key words here too. TODO - still a little confused on keywords
+statement
+    : ID '=' expre                                               # assigment
+    | 'print' WS expre                                           # doPrint
+    | 'while' expre '{' ('\n\r')* statement* '}'                 # whileLoop   // Keyword
+    | 'if' expre '{' statement* '}' ('else' '{' statement* '}')? # ifElse
+    | 'return' expre?                                            # return
+    | func                                                       # funcStat
     ;
 
-param : WS* expre WS*;
+
+expre // Add bool and string?
+    : '(' expre ')'                  # paren
+    | func                           # funcExpre
+    | op=('-'|'!') expre             # unibool
+    | expre op=('*'|'/') expre       # muldiv
+    | expre op=('+'|'-') expre       # addsub
+    | expre op=('=='|'<'|'<=') expre # comp
+    | LITERAL                        # Literal
+    | ID                             # Identifier
+    ;
 
 //  ----------- Defining Lexer Elements -------------
 
-// Added
-TYPE : 'Int' | 'String' | 'Bool' ;
+// TODO
+STRING : ;
 
-// Remaining: Keywords, Type names
+LITERAL : NUMBER|STRING|BOOLEAN ;
+
+TYPE : 'Int' | 'String' | 'Bool' ;
 
 NUMBER : [0-9]+;
 
 BOOLEAN : 'true' | 'false';  // keyword
-
-// TODO -
-STRING : ;
-
 
 ID : [_A-Za-z][_A-Za-z0-9]*;
 

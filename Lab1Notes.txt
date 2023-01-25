@@ -27,7 +27,6 @@ Completed Items:
         - Literals:
             - true and false
             - integers
-            - booleans
 
         - to do in Literals:
             1. String literals
