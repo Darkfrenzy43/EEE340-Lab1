@@ -1,8 +1,6 @@
 
 grammar NimbleBrownVelasco;
 
-// TODO - 1. Fix the function expression and statement
-//           -> There should be two of these I think
 
 
 // ----------------- Defining Parser Elements -------------------
@@ -54,11 +52,10 @@ statement
     | if_frag (else_frag)?                               # ifElse
     | 'return' expre?                                    # return
     | func                                               # funcStat
-    | var                                                # VarDec
     ;
 
 
-expre // Add bool and string?
+expre
     : '(' expre ')'                  # paren
     | func                           # funcExpre
     | op=('-'|'!') expre             # unibool
@@ -71,8 +68,14 @@ expre // Add bool and string?
 
 //  ----------- Defining Lexer Elements -------------
 
-// TODO
-STRING : ;
+// ---- Building the string from fragments ----
+
+// TODO - make string lexer be able to distinguish a '\'-character with a regular character
+
+ASC_FRAG : [ -~] -> skip; // skip included so it doesn't detect an ASC_FRAG whenever there is no string
+SLASH_CHAR_FRAG : [abfnrtv\\'"?] ;
+SLASH_FRAG : '\\' SLASH_CHAR_FRAG;
+STRING : '"' (ASC_FRAG|SLASH_FRAG)*? '"';
 
 // LITERAL : NUMBER|STRING|BOOLEAN ;
 
