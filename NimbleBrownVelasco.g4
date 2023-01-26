@@ -58,9 +58,9 @@ statement
 expre
     : '(' expre ')'                  # paren
     | func                           # funcExpre
+    | expre op=('+'|'-') expre       # addsub
     | op=('-'|'!') expre             # unibool
     | expre op=('*'|'/') expre       # muldiv
-    | expre op=('+'|'-') expre       # addsub
     | expre op=('=='|'<'|'<=') expre # compare
     | (NUMBER|STRING|BOOLEAN)        # Literal
     | ID                             # Identifier
