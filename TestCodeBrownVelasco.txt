@@ -39,6 +39,20 @@ Invalid Strings:
 "hello
 "hello\\\"
 
+Valid Expressions
+(-10)
+(!hello)
+-true
+- 1 == 65
+75 == true
+hello < best
+"test" + 10
+
+Invalid Expressions
+== 10
+* 6
+35 < <
+()
 
 Valid Function Calls:
 - this_one_is_valid()
