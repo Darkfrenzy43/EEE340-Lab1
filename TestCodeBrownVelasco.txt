@@ -7,7 +7,6 @@ Description:
     Each token/parsing rule is to have their own section of valid and invalid code.
 
 
-
 Valid IDs (Identifiers):
 - _theFirst
 - Number_2
@@ -20,39 +19,58 @@ Invalid IDs (Identifiers):
 - $1234asdf
 - notValid-d:D
 
+
 Valid Strings:
-"hello"
-"hello\a"
-"hello\\"
-"hello\\n \n"
-"\b"
-"\f"
-"\r"
-"\t"
-"\v"
-"\'"
-"\""
-"\?"
+- "hello"
+- "hello\a"
+- "hello\\"
+- "hello\\n \n"
+- "\b"
+- "\f"
+- "\r"
+- "\t"
+- "\v"
+- "\'"
+- "\""
+- "\?"
 
 Invalid Strings:
-"hello\c"
-"hello
-"hello\\\"
+- "hello\c"
+- "hello
+- "hello\\\"
+
 
 Valid Expressions
-(-10)
-(!hello)
--true
-- 1 == 65
-75 == true
-hello < best
-"test" + 10
+- (-10)
+- (!hello)
+- -true
+- - 1 == 65
+- 75 == true
+- hello < best
+- "test" + 10
 
 Invalid Expressions
-== 10
-* 6
-35 < <
-()
+- == 10
+- * 6
+- 35 < <
+- ()
+
+
+Valid Statement
+- hello = (-10)
+- print hello
+- while (6+10){}
+- while true { if 10 + 10{} }
+- if "hello" {} else {test = 7}
+- return "string"
+
+Invalid Statement
+- pint true
+- while true {
+- if {}
+- return 10 === 6
+- if "yes" {} else true {test = 66}
+
 
 Valid Function Calls:
 - this_one_is_valid()
@@ -61,15 +79,9 @@ Valid Function Calls:
 - oneInAnother((12 + 3) - 2, someVar);
 - thisWillDo( sureWill() )
 
-
-
 Invalid Function Calls:
 - nope(, )
 - not_good(really bad)
 - 123NotViable()
 - Absolutely()not
-- maybe?()
 - niceTry(try ,, again)
-
-
-
