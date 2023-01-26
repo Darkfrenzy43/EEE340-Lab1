@@ -1,12 +1,5 @@
-// submitted by OCdt Velasco and OCdt Brown
-Description:
 
-    Authors: OCdt Aaron Brown and OCdt Liethan Velasco
-
-    This file is to contain all the test code for the antlr code written in the NimbleBrownVelasco.g4 file,
-    as per the lab instructions.
-
-    Each token/parsing rule is to have their own section of valid and invalid code.
+// Authors: OCdt Aaron Brown and OCdt Liethan Velasco
 
 
 Valid IDs (Identifiers):
@@ -102,7 +95,15 @@ Invalid Function Calls:
 
 
 Valid Function Definitions:
--
+- func yepthisisaloud(first_one1: Int, second_to_none2: String) {}
+- func fillthisone() -> Int {
+    return "filled up. Not an integer though."
+}
+- func return_me_nothing_2day(toreturn: Bool) -> Bool {
+    var valuetoReturn : Bool = toreturn
+    dostuff(valuetoReturn, someOption)
+    return valuetoReturn
+}
 
 Invalid Function Definitions:
 - Func 6 () -> Int {}
@@ -110,9 +111,8 @@ Invalid Function Definitions:
     anEarlyStatement()
     var andALateVar : String = "Yup. That won't do. "
 }
-- func coolFunc () -> Int {6 == true }
-- CantStopTheFunc () -> return 10
-
+- func coolFunc (realfuncy; very nice) -> Int {6 == true }
+- CantStopTheFunc (not: a ; single: thing) -> return 10
 
 
 
@@ -120,7 +120,6 @@ Valid Variable Declarations:
 - var newVar : String
 - var somethingRandom : Int = "lmao this is a string. Still valid though."
 - var put10numbershere : Bool
-
 
 Invalid Variable Declarations:
 - ofcoursenot : Int
