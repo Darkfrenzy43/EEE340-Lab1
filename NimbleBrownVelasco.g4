@@ -73,6 +73,8 @@ expre
 
 // TODO - make string lexer be able to distinguish a '\'-character with a regular character
 
+NUMBER : [0-9]+;
+
 ASC_FRAG : ((' '..'[')|(']'..'~')) -> skip; // skip included so it doesn't detect an ASC_FRAG whenever there is no string
 
 SLASH_FRAG :   '\\' [ \\abfnrtv'"?] ;
@@ -87,7 +89,6 @@ STRING : '"' (ASC_FRAG|SLASH_FRAG)*? '"';
 
 TYPE : 'Int' | 'String' | 'Bool' ;
 
-NUMBER : ('0'..'9')+;
 
 BOOLEAN : 'true' | 'false';  // keyword
 
