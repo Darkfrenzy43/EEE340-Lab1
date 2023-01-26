@@ -69,33 +69,18 @@ expre
 
 //  ----------- Defining Lexer Elements -------------
 
-// ---- Building the string from fragments ----
-
-// TODO - make string lexer be able to distinguish a '\'-character with a regular character
-
+TYPE : 'Int' | 'String' | 'Bool' ;
+ID : [_A-Za-z][_A-Za-z0-9]*;
 NUMBER : [0-9]+;
+BOOLEAN : 'true' | 'false';  // keyword
 
+// ---- Building the string from fragments ----
 ASC_FRAG : ((' '..'[')|(']'..'~')) -> skip; // skip included so it doesn't detect an ASC_FRAG whenever there is no string
-
 SLASH_FRAG :   '\\' [ \\abfnrtv'"?] ;
-// SLASH_FRAG_SPEC : ('\\') ('\\'[ \\abfnrtv'"?]|[ abfnrtv'"?]) ;
-
-
 STRING : '"' (ASC_FRAG|SLASH_FRAG)*? '"';
 
 
-
-// LITERAL : NUMBER|STRING|BOOLEAN ;
-
-TYPE : 'Int' | 'String' | 'Bool' ;
-
-
-BOOLEAN : 'true' | 'false';  // keyword
-
-ID : [_A-Za-z][_A-Za-z0-9]*;
-
 COMMENT : '//' ~[\r\n]* -> skip; // ~ means anything but whatever comes after (\r\n is windows version of UNIX's \n)
-
 WS : [ \t\r\n]+ -> skip ; // Though will not be used, making it valid token
 
 
