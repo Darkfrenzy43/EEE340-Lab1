@@ -1,7 +1,23 @@
 
+/*
+
+    Authors: OCdt Brown and OCdt Velasco
+
+
+    Major lessons learned:
+
+    - Order of the lexer and parser elements does in fact matter!
+    For example, if we had defined the ASC_FRAG lexer element before the NUMBER and ID elements,
+    ANTLR would initally read any inputted single digit number or single character as an ASC_FRAG, and
+    not the latter two elements. Thus, they would never be registered as NUMBERs or IDs, but rather ASC_FRAG as a part
+    of an entire string.
+
+    TLDR: ASC_FRAG was block the functioning of NUMBER and ID.
+
+*/
+
+
 grammar NimbleBrownVelasco;
-
-
 
 // ----------------- Defining Parser Elements -------------------
 
@@ -39,31 +55,28 @@ stat_block_frag : '{' ('\n\r')* statement* '}'  ;
 if_frag : 'if' expre stat_block_frag;
 else_frag : 'else' stat_block_frag;
 
-
 var : 'var' ID ':' TYPE ('=' expre)* ; // Double check this
 
 // -------------------- Defining Large Parser Elements --------------------
 
-// Defining key words here too. TODO - still a little confused on keywords
 statement
-    : ID '=' expre                                       # assigment
-    | 'print' expre                                      # doPrint
-    | 'while' expre stat_block_frag                      # whileLoop   // Keyword
-    | if_frag (else_frag)?                               # ifElse
-    | 'return' expre?                                    # return
-    | func                                               # funcStat
+    : ID '=' expre                      # assigment
+    | 'print' expre                     # doPrint
+    | 'while' expre stat_block_frag     # whileLoop
+    | if_frag (else_frag)?              # ifElse
+    | 'return' expre?                   # return
+    | func                              # funcStat
     ;
 
-
 expre
-    : '(' expre ')'                  # paren
-    | func                           # funcExpre
-    | op=('-'|'!') expre             # unibool
-    | expre op=('*'|'/') expre       # muldiv
-    | expre op=('+'|'-') expre       # addsub
-    | expre op=('=='|'<'|'<=') expre # compare
-    | (NUMBER|STRING|BOOLEAN)        # Literal
-    | ID                             # Identifier
+    : '(' expre ')'                      # paren
+    | func                               # funcExpre
+    | op=('-'|'!') expre                 # unibool
+    | expre op=('*'|'/') expre           # muldiv
+    | expre op=('+'|'-') expre           # addsub
+    | expre op=('=='|'<'|'<=') expre     # compare
+    | (NUMBER|STRING|BOOLEAN)            # Literal
+    | ID                                 # Identifier
     ;
 
 
@@ -76,8 +89,8 @@ BOOLEAN : 'true' | 'false';  // keyword
 
 // ---- Building the string from fragments ----
 ASC_FRAG : ((' '..'[')|(']'..'~')) -> skip; // skip included so it doesn't detect an ASC_FRAG whenever there is no string
-SLASH_FRAG :   '\\' [ \\abfnrtv'"?] ;
-STRING : '"' (ASC_FRAG|SLASH_FRAG)*? '"';
+SLASH_FRAG :   '\\' [\\abfnrtv'"?] ;
+STRING : '"' (ASC_FRAG|SLASH_FRAG)*?  '"';
 
 
 COMMENT : '//' ~[\r\n]* -> skip; // ~ means anything but whatever comes after (\r\n is windows version of UNIX's \n)
