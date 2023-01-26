@@ -69,29 +69,19 @@ expre
 
 //  ----------- Defining Lexer Elements -------------
 
-// ---- Building the string from fragments ----
-
-
-ASC_FRAG : ((' '..'[')|(']'..'~')) -> skip; // skip included so it doesn't detect an ASC_FRAG whenever there is no string
-
-SLASH_FRAG :   '\\' [ \\abfnrtv'"?] ;
-
-STRING : '"' (ASC_FRAG|SLASH_FRAG)*? '"';
-
-
-
-
-
 TYPE : 'Int' | 'String' | 'Bool' ;
+ID : [_A-Za-z][_A-Za-z0-9]*;
+NUMBER : [0-9]+ ;
 
-NUMBER : ([0-9]|[0-9][0-9]+) ;
+// ---- Building the string from fragments ----
+ASC_FRAG : ((' '..'[')|(']'..'~')) -> skip; // skip included so it doesn't detect an ASC_FRAG whenever there is no string
+SLASH_FRAG :   '\\' [ \\abfnrtv'"?] ;
+STRING : '"' (ASC_FRAG|NUMBER|SLASH_FRAG)*? '"';
+
 
 BOOLEAN : 'true' | 'false';  // keyword
 
-ID : [_A-Za-z][_A-Za-z0-9]*;
-
 COMMENT : '//' ~[\r\n]* -> skip; // ~ means anything but whatever comes after (\r\n is windows version of UNIX's \n)
-
 WS : [ \t\r\n]+ -> skip ; // Though will not be used, making it valid token
 
 
