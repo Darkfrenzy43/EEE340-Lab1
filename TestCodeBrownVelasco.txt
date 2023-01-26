@@ -20,6 +20,25 @@ Invalid IDs (Identifiers):
 - $1234asdf
 - notValid-d:D
 
+Valid Strings:
+"hello"
+"hello\a"
+"hello\\"
+"hello\\n \n"
+"\b"
+"\f"
+"\r"
+"\t"
+"\v"
+"\'"
+"\""
+"\?"
+
+Invalid Strings:
+"hello\c"
+"hello
+"hello\\\"
+
 
 Valid Function Calls:
 - this_one_is_valid()
