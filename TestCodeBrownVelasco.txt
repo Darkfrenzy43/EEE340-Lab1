@@ -38,6 +38,9 @@ Invalid Strings:
 - "hello\c"
 - "hello
 - "hello\\\"
+- "\"
+- " \"
+- "\ "
 
 
 Valid Expressions
