@@ -6,7 +6,7 @@ grammar NimbleBrownVelasco;
 // ----------------- Defining Parser Elements -------------------
 
 // Creating overarching script parser element
-script : func_def* (var* statement*);
+script : func_def* (var* statement*) EOF;
 
 
 // ------ Defining Elements for Functions --------
@@ -71,23 +71,20 @@ expre
 
 // ---- Building the string from fragments ----
 
-// TODO - make string lexer be able to distinguish a '\'-character with a regular character
 
 ASC_FRAG : ((' '..'[')|(']'..'~')) -> skip; // skip included so it doesn't detect an ASC_FRAG whenever there is no string
 
 SLASH_FRAG :   '\\' [ \\abfnrtv'"?] ;
-// SLASH_FRAG_SPEC : ('\\') ('\\'[ \\abfnrtv'"?]|[ abfnrtv'"?]) ;
-
 
 STRING : '"' (ASC_FRAG|SLASH_FRAG)*? '"';
 
 
 
-// LITERAL : NUMBER|STRING|BOOLEAN ;
+
 
 TYPE : 'Int' | 'String' | 'Bool' ;
 
-NUMBER : ('0'..'9')+;
+NUMBER : ([0-9]|[0-9][0-9]+) ;
 
 BOOLEAN : 'true' | 'false';  // keyword
 
