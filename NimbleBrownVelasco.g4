@@ -55,7 +55,7 @@ stat_block_frag : '{' ('\n\r')* statement* '}'  ;
 if_frag : 'if' expre stat_block_frag;
 else_frag : 'else' stat_block_frag;
 
-var : 'var' ID ':' TYPE ('=' expre)* ; // Double check this
+var : 'var' ID ':' TYPE ('=' expre)* ; // Should be ? instead of *
 
 // -------------------- Defining Large Parser Elements --------------------
 
@@ -83,14 +83,15 @@ expre
 //  ----------- Defining Lexer Elements -------------
 
 TYPE : 'Int' | 'String' | 'Bool' ;
+BOOLEAN : 'true' | 'false';  // SHOULD BE DEFINED UP HERE
 ID : [_A-Za-z][_A-Za-z0-9]*;
 NUMBER : [0-9]+;
-BOOLEAN : 'true' | 'false';  // keyword
+
 
 // ---- Building the string from fragments ----
 ASC_FRAG : ((' '..'[')|(']'..'~')) -> skip; // skip included so it doesn't detect an ASC_FRAG whenever there is no string
-SLASH_FRAG :   '\\' [\\abfnrtv'"?] ;
-STRING : '"' (ASC_FRAG|SLASH_FRAG)*?  '"';
+fragment SLASH_FRAG :   '\\' [\\abfnrtv'"?] ; // Changed into fragment
+fragment STRING : '"' (ASC_FRAG|SLASH_FRAG)*?  '"'; // Added fragments here
 
 
 COMMENT : '//' ~[\r\n]* -> skip; // ~ means anything but whatever comes after (\r\n is windows version of UNIX's \n)
