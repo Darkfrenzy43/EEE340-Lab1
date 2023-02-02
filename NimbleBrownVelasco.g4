@@ -51,7 +51,7 @@ func_args : expre (','expre)* ;
 
 // ------------------ Defining Statement Fragments -----------------------
 
-stat_block_frag : '{' ('\n\r')* statement* '}'  ;
+stat_block_frag : '{' ('\n\r')* statement* '}'  ; // The '\n\r' part actually isn't necessary
 if_frag : 'if' expre stat_block_frag;
 else_frag : 'else' stat_block_frag;
 
@@ -75,23 +75,23 @@ expre
     | expre op=('*'|'/') expre           # muldiv
     | expre op=('+'|'-') expre           # addsub
     | expre op=('=='|'<'|'<=') expre     # compare
-    | (NUMBER|STRING|BOOLEAN)            # Literal
-    | ID                                 # Identifier
+    | (NUMBER|STRING|BOOLEAN)            # Literal // THESE SHOULD ALL BE SEPARATED. Should also be 'literal'
+    | ID                                 # Identifier  // Should be 'identifier'
     ;
 
 
 //  ----------- Defining Lexer Elements -------------
 
 TYPE : 'Int' | 'String' | 'Bool' ;
-BOOLEAN : 'true' | 'false';  // SHOULD BE DEFINED UP HERE
+BOOLEAN : 'true' | 'false';  // SHOULD BE DEFINED BEFORE ID
 ID : [_A-Za-z][_A-Za-z0-9]*;
 NUMBER : [0-9]+;
 
 
-// ---- Building the string from fragments ----
-ASC_FRAG : ((' '..'[')|(']'..'~')) -> skip; // skip included so it doesn't detect an ASC_FRAG whenever there is no string
+// ---- Building the string from fragments ---- // Added fragments here
+fragment ASC_FRAG : ((' '..'[')|(']'..'~')); // skip included so it doesn't detect an ASC_FRAG whenever there is no string
 fragment SLASH_FRAG :   '\\' [\\abfnrtv'"?] ; // Changed into fragment
-fragment STRING : '"' (ASC_FRAG|SLASH_FRAG)*?  '"'; // Added fragments here
+STRING : '"' (ASC_FRAG|SLASH_FRAG)*?  '"';
 
 
 COMMENT : '//' ~[\r\n]* -> skip; // ~ means anything but whatever comes after (\r\n is windows version of UNIX's \n)
